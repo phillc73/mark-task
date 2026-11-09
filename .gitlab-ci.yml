@@ -1,0 +1,22 @@
+# .gitlab-ci.yml - build and test gate.
+# The suite is timezone-sensitive; TZ is pinned for every job.
+stages:
+  - test
+
+variables:
+  TZ: America/New_York
+
+default:
+  image: ocaml/opam:debian-12-ocaml-5.3
+  timeout: 30m
+  before_script:
+    # the runner helper clones as root; the script runs as the image's
+    # opam user - git otherwise refuses the checkout (dubious ownership)
+    - git config --global --add safe.directory "$CI_PROJECT_DIR"
+
+build-and-test:
+  stage: test
+  script:
+    - opam install . --deps-only --with-test
+    - dune build
+    - dune runtest --force

@@ -1,0 +1,49 @@
+(executable
+  (name mark_task)
+  (public_name mark-task)
+  (libraries cmdliner yojson uuidm ptime ptime.clock.os unix)
+  (modules
+    Types
+    Task
+    Atomic_write
+    Config
+    Markdown
+    Storage
+    Archive
+    History
+    Task_manager
+    Ui
+    View
+    Recurring
+    Notifications
+    Performance
+    Validation
+    Alias
+    Repl
+    Mark_task)
+)
+
+(test
+  (name test_main)
+  (deps README.md)
+  (libraries alcotest yojson uuidm ptime ptime.clock.os unix)
+  (modules
+    Test_main
+    Types
+    Task
+    Atomic_write
+    Config
+    Markdown
+    Storage
+    Archive
+    History
+    Task_manager
+    Ui
+    View
+    Recurring
+    Notifications
+    Performance
+    Validation
+    Alias
+    Repl)
+)
